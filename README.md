@@ -19,13 +19,14 @@ package main
 
 import (
     "github.com/soldatigabriele/printer"
+    "github.com/elliotchance/orderedmap"
 )
 
 func main() {
     // Create the data that will populate the table
-    data := make(map[string]interface{})
-    data["Test"] = "that"
-    data["Number"] = 100
+    m := orderedmap.NewOrderedMap()
+    m.Set("Test", "that")
+    m.Set("Number", 100)
     data["Date"] = time.Now()
 
     bp := printer.Blueprint{

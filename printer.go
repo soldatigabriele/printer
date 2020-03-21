@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/elliotchance/orderedmap"
 	"github.com/jedib0t/go-pretty/table"
 )
 
@@ -11,7 +12,7 @@ import (
 type Blueprint struct {
 	Colour int
 	Title  string
-	Data   map[string]interface{}
+	Data   *orderedmap.OrderedMap
 }
 
 // Colour constants. Determine the Colour of printing
@@ -40,11 +41,13 @@ func Print(e Blueprint) error {
 	}
 
 	t.AppendHeader(table.Row{e.Title, ""})
-	for k, v := range e.Data {
+	for _, k := range e.Data.Keys() {
+		v, _ := e.Data.Get(k)
 		t.AppendRows([]table.Row{
 			{k, v},
 		})
 	}
+
 	fmt.Println()
 	t.Render()
 	return nil

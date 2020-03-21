@@ -3,13 +3,16 @@ package printer
 import (
 	"testing"
 	"time"
+
+	"github.com/elliotchance/orderedmap"
 )
 
 func TestPrint(t *testing.T) {
-	m := make(map[string]interface{})
-	m["Test"] = "that"
-	m["Number"] = 100
-	m["Date"] = time.Now()
+	m := orderedmap.NewOrderedMap()
+
+	m.Set("Test", "that")
+	m.Set("Number", 100)
+	m.Set("Date", time.Now())
 	e := Blueprint{
 		Data:   m,
 		Colour: Red,
@@ -22,8 +25,9 @@ func TestPrint(t *testing.T) {
 }
 
 func Example() {
-	m := make(map[string]interface{})
-	m["Test"] = "that"
+	m := orderedmap.NewOrderedMap()
+	m.Set("Test", "that")
+	m.Set("Number", 1000)
 	e := Blueprint{
 		Data:   m,
 		Colour: Red,
@@ -33,4 +37,5 @@ func Example() {
 	// Output:
 	//[101;30m MY TABLE [0m[101;30m      [0m
 	//[107;30m Test     [0m[107;30m that [0m
+	//[47;30m Number   [0m[47;30m 1000 [0m
 }
